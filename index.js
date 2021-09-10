@@ -470,7 +470,7 @@ module.exports = function(Bookshelf, options) {
   /**
    * Look at the bookshelf documentation.
    */
-  modelExt.fetch = async function fetch(options) {
+  modelExt._fetch = async function fetch(options) {
     // Attach options that were built by eloquent/this extension.
     options = await mergeOptions(this, options);
 
@@ -492,13 +492,13 @@ module.exports = function(Bookshelf, options) {
    */
   modelExt.get = function(...args) {
     if (isString(args[0])) return modelGet.apply(this, args);
-    else return this.fetchAll(...args);
+    else return this._fetchAll(...args);
   };
 
   /**
    * Look at the bookshelf documentation.
    */
-  modelExt.fetchAll = async function fetchAll(options) {
+  modelExt._fetchAll = async function fetchAll(options) {
     // Attach options that were built by eloquent/this extension.
     options = await mergeOptions(this, options);
 
@@ -1692,17 +1692,17 @@ module.exports = function(Bookshelf, options) {
    */
   collectionExt.get = function(...args) {
     // Get a model from a collection, specified by an id, a cid, or by passing in a model.
-    if (args.length < 1) return this.fetch(...args);
+    if (args.length < 1) return this._fetch(...args);
     let obj = args[0];
     if ((obj == null) || isString(obj) || isNumber(obj) ||
       ('id' in obj) || ('cid' in obj)) return collectionGet.apply(this, args);
-    return this.fetch(...args);
+    return this._fetch(...args);
   };
 
   /**
    * Look at the bookshelf documentation.
    */
-  collectionExt.fetch = async function fetch(options) {
+  collectionExt._fetch = async function fetch(options) {
     // Attach options that were built by eloquent/this extension.
     options = await mergeOptions(this, options);
 
